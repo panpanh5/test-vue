@@ -68,11 +68,19 @@ export default {
           window.title = "";
           // eslint-disable-next-line no-undef
           this.axios
-            .post("/login", {
+            .post("localhost:8080/login", {
               role: "学生",
               useName: this.ruleForm.userName,
               passWord: this.ruleForm.passWord,
             })
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((v) => {
+              console.log(v);
+            });
+              this.axios
+            .get("localhost:8080/teacher/queryClass")
             .then((response) => {
               console.log(response);
             })
