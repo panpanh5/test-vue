@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 export default {
   name: "Login",
   data() {
@@ -89,14 +90,25 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      console.log(formName);
+      Vue.$axios.get();
+      //   Vue.axios
+      //     .get("")
+      //     .then((response) => {
+      //       console.log(response.data);
+      //     })
+      //     .catch((v) => {
+      //       console.log(v);
+      //     });
+      //   this.$router.push({ path: "/home" });
+      //   this.$refs[formName].validate((valid) => {
+      //     if (valid) {
+      //       alert("submit!");
+      //     } else {
+      //       console.log("error submit!!");
+      //       return false;
+      //     }
+      //   });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
