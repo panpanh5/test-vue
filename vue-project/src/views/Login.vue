@@ -1,114 +1,88 @@
 <template>
   <div id="login">
-    <el-form
-      :model="ruleForm"
-      status-icon
-      :rules="rules"
-      ref="ruleForm"
-      label-width="100px"
-      class="demo-ruleForm"
-    >
-      <el-form-item label="密码" prop="pass">
-        <el-input
-          type="password"
-          v-model="ruleForm.pass"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="确认密码" prop="checkPass">
-        <el-input
-          type="password"
-          v-model="ruleForm.checkPass"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="年龄" prop="age">
-        <el-input v-model.number="ruleForm.age"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >提交</el-button
-        >
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="container">
+      <el-form
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="用户名" prop="userName">
+          <el-input v-model.number="ruleForm.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="passWord">
+          <el-input
+            type="password"
+            v-model="ruleForm.passWord"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')"
+            >登录</el-button
+          >
+          <el-button @click="resetForm('ruleForm')">注册</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
 export default {
   name: "Login",
   data() {
-    var checkAge = (rule, value, callback) => {
+    var checkUseName = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("年龄不能为空"));
+        return callback(new Error("用户名不能为空"));
       }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          if (value < 18) {
-            callback(new Error("必须年满18岁"));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
+      callback();
     };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
-        callback();
       }
+      callback();
     };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
+
     return {
       ruleForm: {
-        pass: "",
-        checkPass: "",
-        age: "",
+        passWord: "",
+        userName: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        age: [{ validator: checkAge, trigger: "blur" }],
+        passWord: [{ validator: validatePass, trigger: "blur" }],
+        userName: [{ validator: checkUseName, trigger: "blur" }],
       },
     };
   },
   methods: {
     submitForm(formName) {
-      console.log(formName);
-      Vue.$axios.get();
-      //   Vue.axios
-      //     .get("")
-      //     .then((response) => {
-      //       console.log(response.data);
-      //     })
-      //     .catch((v) => {
-      //       console.log(v);
-      //     });
-      //   this.$router.push({ path: "/home" });
-      //   this.$refs[formName].validate((valid) => {
-      //     if (valid) {
-      //       alert("submit!");
-      //     } else {
-      //       console.log("error submit!!");
-      //       return false;
-      //     }
-      //   });
+      console.log(this.ruleForm);
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // this.$router.push({ path: "/home" });
+          // eslint-disable-next-line no-undef
+          this.axios
+            .post("/login", {
+              role: "学生",
+              useName: this.ruleForm.userName,
+              passWord: this.ruleForm.passWord,
+            })
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((v) => {
+              console.log(v);
+            });
+        } else {
+          console.log("用户名或密码错误!");
+          return false;
+        }
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -117,4 +91,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 300px;
+  text-align: center;
+}
+</style>

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start:dev": "vue-cli-service serve --proxy-config proxy.conf.json --port 41001",
     "start": "vue-cli-service serve --port 45000",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 <template>
   <div class="home">
     <header></header>
@@ -11,6 +12,9 @@
             @close="handleClose"
           >
             <el-submenu v-for="(item, index) in navList" :key="index" index="1">
+              <el-menu-item index="1-4-1" route="{ path: 'first' }"
+                >选项1</el-menu-item
+              >
               <template slot="title">
                 <i :class="item.icon"></i>
                 <span>{{ item.name }}</span>
@@ -21,7 +25,9 @@
                 :key="vIndex + index"
               >
                 <template slot="title">{{ v.name }}</template>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
+                <el-menu-item index="1-4-1" :route="{ path: '/' }"
+                  >选项1</el-menu-item
+                >
               </el-submenu>
             </el-submenu>
           </el-menu>
@@ -44,21 +50,21 @@ export default {
         {
           name: "首页",
           icon: "el-icon-s-home",
-          children: [],
+          children: []
         },
         {
           name: "导航一",
-          icon: "el-icon-s-release",
+          icon: "el-icon-s-release"
         },
         {
           name: "导航二",
-          icon: "el-icon-s-ticket",
+          icon: "el-icon-s-ticket"
         },
         {
           name: "导航三",
-          icon: "el-icon-s-management",
-        },
-      ],
+          icon: "el-icon-s-management"
+        }
+      ]
     };
   },
   methods: {
@@ -67,8 +73,8 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
@@ -105,10 +111,11 @@ header {
   height: 40px;
   background-color: rgb(64, 158, 255);
   position: fixed;
+  z-index: 1000;
 }
 /* 内容区域 */
 main {
   display: flex;
-  margin-top: 40px;
+  padding-top: 40px;
 }
 </style>
