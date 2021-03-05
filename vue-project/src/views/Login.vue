@@ -6,7 +6,7 @@
         status-icon
         :rules="rules"
         ref="ruleForm"
-        label-width="100px"
+        label-width="55px"
         class="demo-ruleForm"
       >
         <el-form-item label="用户名" prop="userName">
@@ -65,6 +65,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // this.$router.push({ path: "/home" });
+          window.title = "";
           // eslint-disable-next-line no-undef
           this.axios
             .post("/login", {
@@ -98,9 +99,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("../assets/loginbg.png");
 }
 .container {
-  width: 300px;
-  text-align: center;
+  width: 350px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 }
 </style>

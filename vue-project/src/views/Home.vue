@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <div class="home">
+  <div class="home" v-title data-title="学习vue页面">
     <header></header>
     <main>
       <div id="nav">
@@ -50,21 +50,21 @@ export default {
         {
           name: "首页",
           icon: "el-icon-s-home",
-          children: []
+          children: [],
         },
         {
           name: "导航一",
-          icon: "el-icon-s-release"
+          icon: "el-icon-s-release",
         },
         {
           name: "导航二",
-          icon: "el-icon-s-ticket"
+          icon: "el-icon-s-ticket",
         },
         {
           name: "导航三",
-          icon: "el-icon-s-management"
-        }
-      ]
+          icon: "el-icon-s-management",
+        },
+      ],
     };
   },
   methods: {
@@ -73,8 +73,8 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
