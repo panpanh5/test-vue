@@ -60,6 +60,9 @@ export default {
     };
   },
   watch: {
+    change: () => {
+      console.log(this.ruleForm.userName);
+    },
     // $route: (to, from) => {
     //   console.log("$route");
     // },
