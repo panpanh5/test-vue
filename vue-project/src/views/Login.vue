@@ -59,13 +59,18 @@ export default {
       },
     };
   },
+  watch: {
+    // $route: (to, from) => {
+    //   console.log("$route");
+    // },
+  },
   methods: {
     submitForm(formName) {
       console.log(this.ruleForm);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // this.$router.push({ path: "/home" });
-          window.title = "";
+
           // eslint-disable-next-line no-undef
           this.axios
             .post("/login", {
@@ -75,6 +80,7 @@ export default {
             })
             .then((response) => {
               console.log(response);
+              document.title = "学习vue";
             })
             .catch((v) => {
               console.log(v);
