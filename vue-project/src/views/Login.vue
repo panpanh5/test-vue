@@ -66,9 +66,9 @@ export default {
         if (valid) {
           // this.$router.push({ path: "/home" });
           window.title = "";
-          // eslint-disable-next-line no-undef
+        //  eslint-disable-next-line no-undef
           this.axios
-            .post("localhost:8080/login", {
+            .post("api/login", {
               role: "学生",
               useName: this.ruleForm.userName,
               passWord: this.ruleForm.passWord,
@@ -79,8 +79,8 @@ export default {
             .catch((v) => {
               console.log(v);
             });
-              this.axios
-            .get("localhost:8080/teacher/queryClass")
+          this.axios
+            .get("api/student/queryStudentSubject")
             .then((response) => {
               console.log(response);
             })
@@ -91,6 +91,7 @@ export default {
           console.log("用户名或密码错误!");
           return false;
         }
+        
       });
     },
     resetForm(formName) {
