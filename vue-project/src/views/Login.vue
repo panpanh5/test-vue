@@ -65,16 +65,25 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // this.$router.push({ path: "/home" });
-          window.title = "";
-        //  eslint-disable-next-line no-undef
+
+          //  eslint-disable-next-line no-undef
           this.axios
             .post("api/login", {
-              role: "学生",
+              role: "student",
               useName: this.ruleForm.userName,
               passWord: this.ruleForm.passWord,
             })
             .then((response) => {
-              console.log(response);
+              console.log(response.data);
+              if (response.data.code === 0) {
+                this.$router.push({ path: "/home" });
+                document.title='学习加油!'
+                return;
+              }
+              this.$message({
+                message: `${response.data.msg}`,
+                type: "warning",
+              });
             })
             .catch((v) => {
               console.log(v);
@@ -84,14 +93,11 @@ export default {
             .then((response) => {
               console.log(response);
             })
-            .catch((v) => {
-              console.log(v);
-            });
+            .catch(() => {});
         } else {
           console.log("用户名或密码错误!");
           return false;
         }
-        
       });
     },
     resetForm(formName) {
