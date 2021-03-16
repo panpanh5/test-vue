@@ -33,7 +33,7 @@
 
 <script>
 import encryptByDESModeCBC from "../util/loginEncrype";
-import login from "../service/login/login";
+import login from "../api/login/login";
 export default {
   name: "Login",
   data() {
@@ -78,7 +78,8 @@ export default {
             passWord: this.ruleForm.passWord,
           });
           console.log(params);
-          login(params);
+          const data = login(params);
+          console.log(data);
           //   encrypeMethod.encryptByDESModeCBC()
           //   this.axios.post("/api/login", { data: params }).then((res) => {
           //     console.log();
