@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import encryptByDESModeCBC from "../util/loginEncrype";
+import login from "../service/login/login";
 export default {
   name: "Login",
   data() {
@@ -69,28 +71,25 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      console.log(this.ruleForm);
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // this.$router.push({ path: "/home" });
-
-          // eslint-disable-next-line no-undef
-          this.axios
-            .post("/login", {
-              role: "学生",
-              useName: this.ruleForm.userName,
-              passWord: this.ruleForm.passWord,
-            })
-            .then((response) => {
-              console.log(response);
-              document.title = "学习vue";
-            })
-            .catch((v) => {
-              console.log(v);
-            });
-        } else {
-          console.log("用户名或密码错误!");
-          return false;
+          const params = encryptByDESModeCBC({
+            userName: this.ruleForm.userName,
+            passWord: this.ruleForm.passWord,
+          });
+          console.log(params);
+          login(params);
+          //   encrypeMethod.encryptByDESModeCBC()
+          //   this.axios.post("/api/login", { data: params }).then((res) => {
+          //     console.log();
+          //     this.$message(res.data.message);
+          //   });
+          //   this.axios.get("/api/items").then((res) => {
+          //     console.log(res);
+          //   });
+          //   this.axios.post("/api/add").then((res) => {
+          //     console.log(res);
+          //   });
         }
       });
     },
